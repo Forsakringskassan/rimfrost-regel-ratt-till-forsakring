@@ -1,6 +1,6 @@
-# Template Quarkus App
+# Rimfrost regel - Rätt till försäkring
 
-An example Quarkus application implementing [template-api](https://github.com/Forsakringskassan/template-api).
+En regel som körs med quarkus.
 
 Build it with `./mvnw -s settings.xml clean verify`.
 
