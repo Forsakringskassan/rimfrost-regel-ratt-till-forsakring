@@ -9,7 +9,7 @@
   </parent>
 
   <groupId>com.example</groupId>
-  <artifactId>template-quarkus-app</artifactId>
+  <artifactId>rimfrost-regel-ratt-till-forsakring</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
   <properties>
