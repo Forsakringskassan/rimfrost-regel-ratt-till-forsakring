@@ -11,7 +11,7 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 public interface Folkbokford
 {
 
-    @GET
-    @Path("/{social_security_nr}")
-    boolean isFolkbokf(@PathParam("social_security_nr") String social_security_nr);
+   @GET
+   @Path("/{social_security_nr}")
+   boolean isFolkbokf(@PathParam("social_security_nr") String social_security_nr);
 }

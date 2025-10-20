@@ -17,12 +17,12 @@ public class VahRtfProcessor
 
       Thread.sleep(6000);
 
-//      return new VahRtfResponse(vahRtfRequest.processId, true);
-       boolean bokf = FolkbokfordService.isBokf(vahRtfRequest.pnr);
-       var res =  new VahRtfResponse();
-       res.setProcessId(vahRtfRequest.processId);
-       res.setResult(bokf);
-       return res;
+      //      return new VahRtfResponse(vahRtfRequest.processId, true);
+      boolean bokf = FolkbokfordService.isBokf(vahRtfRequest.pnr);
+      var res = new VahRtfResponse();
+      res.setProcessId(vahRtfRequest.processId);
+      res.setResult(bokf);
+      return res;
    }
 
 }
