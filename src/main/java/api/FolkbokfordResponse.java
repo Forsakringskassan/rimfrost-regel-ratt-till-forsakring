@@ -1,6 +1,5 @@
 package api;
 
-
 public class FolkbokfordResponse
 {
 
@@ -15,7 +14,8 @@ public class FolkbokfordResponse
       this.result = result;
    }
 
-   public boolean getResult() {
-    return this.result;
+   public boolean getResult()
+   {
+      return this.result;
    }
 }
