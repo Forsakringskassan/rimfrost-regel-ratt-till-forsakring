@@ -22,7 +22,7 @@ public class FolkbokfordService
                .baseUri(URI.create("http://localhost:8080"))
                .build(Folkbokford.class);
 
-         return client.isFolkbokf(pnr); // API Call
+         return client.isFolkbokf(pnr).getResult(); // API Call
       }
       catch (Exception e)
       {

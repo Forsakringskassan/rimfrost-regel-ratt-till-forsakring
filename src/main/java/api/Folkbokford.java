@@ -13,5 +13,5 @@ public interface Folkbokford
 
    @GET
    @Path("/{social_security_nr}")
-   boolean isFolkbokf(@PathParam("social_security_nr") String social_security_nr);
+   FolkbokfordResponse isFolkbokf(@PathParam("social_security_nr") String social_security_nr);
 }
