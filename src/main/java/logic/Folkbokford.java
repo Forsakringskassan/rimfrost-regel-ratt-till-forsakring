@@ -1,7 +1,8 @@
-package api;
+package logic;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import logic.dto.LogicFolkbokfordResponse;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 @RegisterRestClient(configKey = "rtf")
@@ -13,5 +14,5 @@ public interface Folkbokford
 
    @GET
    @Path("/{social_security_nr}")
-   FolkbokfordResponse isFolkbokf(@PathParam("social_security_nr") String social_security_nr);
+   LogicFolkbokfordResponse isFolkbokf(@PathParam("social_security_nr") String social_security_nr);
 }
