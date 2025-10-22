@@ -29,7 +29,6 @@ public class VahRtfProcessor
       var presentationResult = presentationMapper.toPresentation(bokford);
       var vahRtfResponse = presentationMapper.toExternalApi(presentationResult);
       vahRtfResponse.setProcessId(vahRtfRequest.processId);
-      //Placeholder until proper return type has been generated
       return vahRtfResponse;
    }
 }

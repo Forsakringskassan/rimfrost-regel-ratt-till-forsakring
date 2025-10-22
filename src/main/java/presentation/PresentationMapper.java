@@ -5,7 +5,6 @@ import logic.dto.ImmutableLogicFolkbokfordRequest;
 import logic.dto.LogicFolkbokfordRequest;
 import logic.dto.LogicFolkbokfordResponse;
 import presentation.dto.*;
-import se.fk.rimfrost.api.folkbokforing.jaxrsspec.controllers.generatedsource.model.PopulationRegistrationSocialSecurityNrGet200Response;
 
 @ApplicationScoped
 public class PresentationMapper
