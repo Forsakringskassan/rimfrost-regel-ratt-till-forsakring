@@ -4,10 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import logic.dto.ImmutableLogicFolkbokfordRequest;
 import logic.dto.LogicFolkbokfordRequest;
 import logic.dto.LogicFolkbokfordResponse;
-import presentation.dto.ImmutablePresentationVahRtfRequest;
-import presentation.dto.ImmutablePresentationVahRtfResponse;
-import presentation.dto.PresentationVahRtfRequest;
-import presentation.dto.PresentationVahRtfResponse;
+import presentation.dto.*;
 import se.fk.rimfrost.api.folkbokforing.jaxrsspec.controllers.generatedsource.model.PopulationRegistrationSocialSecurityNrGet200Response;
 
 @ApplicationScoped
@@ -35,9 +32,9 @@ public class PresentationMapper
             .build();
    }
 
-   public PopulationRegistrationSocialSecurityNrGet200Response toExternalApi(PresentationVahRtfResponse presentationResponse)
+   public VahRtfResponse toExternalApi(PresentationVahRtfResponse presentationResponse)
    {
-      PopulationRegistrationSocialSecurityNrGet200Response apiResponse = new PopulationRegistrationSocialSecurityNrGet200Response();
+      VahRtfResponse apiResponse = new VahRtfResponse();
       apiResponse.setResult(presentationResponse.isBokford());
       return apiResponse;
    }
