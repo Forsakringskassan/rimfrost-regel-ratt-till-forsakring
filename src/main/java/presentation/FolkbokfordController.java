@@ -26,6 +26,8 @@ public class FolkbokfordController implements PopulationRegistrationControllerAp
       var logicRequest = presentationMapper.toLogic(presentationRequest);
       var logicResponse = folkbokfordService.checkFolkbokford(logicRequest);
       var presentationResponse = presentationMapper.toPresentation(logicResponse);
-      return presentationMapper.toExternalApi(presentationResponse);
+      var apiResponse = new PopulationRegistrationSocialSecurityNrGet200Response();
+      apiResponse.setResult(presentationResponse.isBokford());
+      return apiResponse;
    }
 }
