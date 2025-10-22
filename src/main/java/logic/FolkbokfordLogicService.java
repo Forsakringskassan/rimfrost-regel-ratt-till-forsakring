@@ -1,22 +1,17 @@
 package logic;
 
-import integration.IntegrationService;
+import integration.FolkbokfordIntegrationService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
 import logic.dto.LogicFolkbokfordRequest;
 import logic.dto.LogicFolkbokfordResponse;
-import org.eclipse.microprofile.rest.client.RestClientBuilder;
-
-import java.net.URI;
 
 @ApplicationScoped
-public class FolkbokfordService
+public class FolkbokfordLogicService
 {
 
    @Inject
-   IntegrationService folkbokfordIntegration;
+   FolkbokfordIntegrationService folkbokfordIntegration;
 
    @Inject
    LogicMapper logicMapper;

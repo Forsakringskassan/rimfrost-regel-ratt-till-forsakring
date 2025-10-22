@@ -3,7 +3,7 @@ package presentation;
 import jakarta.inject.Inject;
 import jakarta.validation.constraints.Pattern;
 import jakarta.ws.rs.Path;
-import logic.FolkbokfordService;
+import logic.FolkbokfordLogicService;
 import jakarta.enterprise.context.ApplicationScoped;
 import se.fk.rimfrost.api.folkbokforing.jaxrsspec.controllers.generatedsource.PopulationRegistrationControllerApi;
 import se.fk.rimfrost.api.folkbokforing.jaxrsspec.controllers.generatedsource.model.PopulationRegistrationSocialSecurityNrGet200Response;
@@ -13,7 +13,7 @@ import se.fk.rimfrost.api.folkbokforing.jaxrsspec.controllers.generatedsource.mo
 public class FolkbokfordController implements PopulationRegistrationControllerApi
 {
    @Inject
-   FolkbokfordService folkbokfordService;
+   FolkbokfordLogicService folkbokfordService;
 
    @Inject
    PresentationMapper presentationMapper;

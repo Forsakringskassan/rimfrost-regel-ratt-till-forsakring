@@ -11,10 +11,10 @@ import se.fk.github.jaxrsclientfactory.JaxrsClientOptionsBuilders;
 import se.fk.rimfrost.api.folkbokforing.jaxrsspec.controllers.generatedsource.PopulationRegistrationControllerApi;
 
 @ApplicationScoped
-public class IntegrationService
+public class FolkbokfordIntegrationService
 {
 
-   @ConfigProperty(name = "test.api.base-url")
+   @ConfigProperty(name = "folkbokford.api.base-url")
    String folkbokfordBaseUrl;
 
    @Inject
@@ -27,7 +27,6 @@ public class IntegrationService
    {
       this.folkbokfordClient = new JaxrsClientFactory()
             .create(JaxrsClientOptionsBuilders.createClient(folkbokfordBaseUrl, PopulationRegistrationControllerApi.class)
-                  .header("static-header-1", "static-header-1-value")
                   .build());
    }
 
