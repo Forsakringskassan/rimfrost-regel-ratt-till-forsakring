@@ -22,13 +22,12 @@ public class VahRtfProcessor
    @Outgoing("vah-rtf-response")
    public VahRtfResponse process(VahRtfRequest vahRtfRequest)
    {
-      System.out.println("Vah-rtf-request received, ID: " + vahRtfRequest.processId);
-      var presentationRequest = presentationMapper.fromExternalApi(vahRtfRequest.pnr);
+      System.out.println("Vah-rtf-request received, ID: " + vahRtfRequest.processId());
+      var presentationRequest = presentationMapper.fromExternalApi(vahRtfRequest.pnr());
       var logicRequest = presentationMapper.toLogic(presentationRequest);
       var bokford = folkbokfordService.checkFolkbokford(logicRequest);
       var presentationResult = presentationMapper.toPresentation(bokford);
-      var vahRtfResponse = presentationMapper.toExternalApi(presentationResult);
-      vahRtfResponse.setProcessId(vahRtfRequest.processId);
+      var vahRtfResponse = presentationMapper.toExternalApi(presentationResult, vahRtfRequest.processId());
       return vahRtfResponse;
    }
 }

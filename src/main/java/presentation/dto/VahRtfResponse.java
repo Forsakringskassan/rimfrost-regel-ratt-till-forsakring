@@ -1,40 +1,12 @@
 package presentation.dto;
 
 import java.util.UUID;
+import org.immutables.value.Value;
 
-public class VahRtfResponse
+@Value.Immutable
+public interface VahRtfResponse
 {
-   private UUID processId;
-   private boolean result;
+   UUID processId();
 
-   public VahRtfResponse()
-   {
-   }
-
-   public VahRtfResponse(UUID processId, boolean result)
-   {
-      this.processId = processId;
-      this.result = result;
-   }
-
-   public UUID getProcessId()
-   {
-      return processId;
-   }
-
-   public void setProcessId(UUID processId)
-   {
-      this.processId = processId;
-   }
-
-   public boolean isResult()
-   {
-      return result;
-   }
-
-   public void setResult(boolean result)
-   {
-      this.result = result;
-   }
-
+   boolean result();
 }
