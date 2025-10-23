@@ -1,10 +1,9 @@
-package model;
+package presentation.dto;
 
 import java.util.UUID;
 
 public class VahRtfResponse
 {
-
    private UUID processId;
    private boolean result;
 
