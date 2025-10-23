@@ -5,6 +5,7 @@ import logic.dto.ImmutableLogicFolkbokfordRequest;
 import logic.dto.LogicFolkbokfordRequest;
 import logic.dto.LogicFolkbokfordResponse;
 import presentation.dto.*;
+import se.fk.rimfrost.api.vahregelrtfspec.VahRtfResponsePayload;
 
 import java.util.UUID;
 
@@ -33,11 +34,11 @@ public class PresentationMapper
             .build();
    }
 
-   public VahRtfResponse toExternalApi(PresentationVahRtfResponse presentationResponse, UUID processId)
+   public VahRtfResponsePayload toExternalApi(PresentationVahRtfResponse presentationResponse, String processId)
    {
-      return ImmutableVahRtfResponse.builder()
-            .processId(processId)
-            .result(presentationResponse.isBokford())
-            .build();
+      VahRtfResponsePayload to = new VahRtfResponsePayload();
+      to.setProcessId(processId);
+      to.setBokford(presentationResponse.isBokford());
+      return to;
    }
 }
