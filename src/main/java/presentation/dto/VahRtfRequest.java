@@ -1,19 +1,12 @@
 package presentation.dto;
 
 import java.util.UUID;
+import org.immutables.value.Value;
 
-public class VahRtfRequest
+@Value.Immutable
+public interface VahRtfRequest
 {
-   public UUID processId;
-   public String pnr;
+   UUID processId();
 
-   public VahRtfRequest(UUID processId, String pnr)
-   {
-      this.processId = processId;
-      this.pnr = pnr;
-   }
-
-   public VahRtfRequest()
-   {
-   }
+   String pnr();
 }

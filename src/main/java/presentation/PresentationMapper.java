@@ -6,6 +6,8 @@ import logic.dto.LogicFolkbokfordRequest;
 import logic.dto.LogicFolkbokfordResponse;
 import presentation.dto.*;
 
+import java.util.UUID;
+
 @ApplicationScoped
 public class PresentationMapper
 {
@@ -31,10 +33,11 @@ public class PresentationMapper
             .build();
    }
 
-   public VahRtfResponse toExternalApi(PresentationVahRtfResponse presentationResponse)
+   public VahRtfResponse toExternalApi(PresentationVahRtfResponse presentationResponse, UUID processId)
    {
-      VahRtfResponse apiResponse = new VahRtfResponse();
-      apiResponse.setResult(presentationResponse.isBokford());
-      return apiResponse;
+      return ImmutableVahRtfResponse.builder()
+            .processId(processId)
+            .result(presentationResponse.isBokford())
+            .build();
    }
 }
