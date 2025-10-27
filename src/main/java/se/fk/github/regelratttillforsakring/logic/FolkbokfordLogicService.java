@@ -1,10 +1,10 @@
-package logic;
+package se.fk.github.regelratttillforsakring.logic;
 
 import integration.FolkbokfordIntegrationService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import logic.dto.LogicFolkbokfordRequest;
-import logic.dto.LogicFolkbokfordResponse;
+import se.fk.github.regelratttillforsakring.logic.dto.LogicFolkbokfordRequest;
+import se.fk.github.regelratttillforsakring.logic.dto.LogicFolkbokfordResponse;
 
 @ApplicationScoped
 public class FolkbokfordLogicService
