@@ -1,8 +1,8 @@
 package se.fk.github.regelratttillforsakring.logic;
 
-import integration.FolkbokfordIntegrationService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import se.fk.github.regelratttillforsakring.integration.FolkbokfordIntegrationService;
 import se.fk.github.regelratttillforsakring.logic.dto.LogicFolkbokfordRequest;
 import se.fk.github.regelratttillforsakring.logic.dto.LogicFolkbokfordResponse;
 

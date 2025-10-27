@@ -1,4 +1,4 @@
-package integration;
+package se.fk.github.regelratttillforsakring.integration;
 
 import integration.dto.ImmutableIntegrationFolkbokfordResponse;
 import integration.dto.IntegrationFolkbokfordRequest;
