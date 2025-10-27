@@ -1,10 +1,10 @@
-package presentation;
+package se.fk.github.regelratttillforsakring.presentation;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import logic.dto.ImmutableLogicFolkbokfordRequest;
-import logic.dto.LogicFolkbokfordRequest;
-import logic.dto.LogicFolkbokfordResponse;
-import presentation.dto.*;
+import se.fk.github.regelratttillforsakring.logic.dto.ImmutableLogicFolkbokfordRequest;
+import se.fk.github.regelratttillforsakring.logic.dto.LogicFolkbokfordRequest;
+import se.fk.github.regelratttillforsakring.logic.dto.LogicFolkbokfordResponse;
+import se.fk.github.regelratttillforsakring.presentation.dto.*;
 
 import java.util.UUID;
 

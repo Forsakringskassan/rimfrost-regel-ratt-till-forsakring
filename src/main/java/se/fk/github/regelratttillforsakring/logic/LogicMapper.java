@@ -1,12 +1,12 @@
-package logic;
+package se.fk.github.regelratttillforsakring.logic;
 
 import integration.dto.ImmutableIntegrationFolkbokfordRequest;
 import integration.dto.IntegrationFolkbokfordRequest;
 import integration.dto.IntegrationFolkbokfordResponse;
 import jakarta.enterprise.context.ApplicationScoped;
-import logic.dto.ImmutableLogicFolkbokfordResponse;
-import logic.dto.LogicFolkbokfordRequest;
-import logic.dto.LogicFolkbokfordResponse;
+import se.fk.github.regelratttillforsakring.logic.dto.ImmutableLogicFolkbokfordResponse;
+import se.fk.github.regelratttillforsakring.logic.dto.LogicFolkbokfordRequest;
+import se.fk.github.regelratttillforsakring.logic.dto.LogicFolkbokfordResponse;
 
 @ApplicationScoped
 public class LogicMapper
