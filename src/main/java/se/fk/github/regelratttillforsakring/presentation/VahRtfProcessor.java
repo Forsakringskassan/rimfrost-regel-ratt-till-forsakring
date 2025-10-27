@@ -23,8 +23,8 @@ public class VahRtfProcessor
    @Inject
    PresentationMapper presentationMapper;
 
-   @Incoming("vah-rtf-request")
-   @Outgoing("vah-rtf-response")
+   @Incoming("vah-rtf-requests")
+   @Outgoing("vah-rtf-responses")
    public VahRtfResponse process(VahRtfRequest vahRtfRequest)
    {
       MDC.put(MDCKeys.PROCESSID.name(), vahRtfRequest.processId().toString());
