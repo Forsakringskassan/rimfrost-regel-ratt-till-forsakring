@@ -1,4 +1,4 @@
-package integration;
+package se.fk.github.regelratttillforsakring.integration;
 
 import integration.dto.IntegrationFolkbokfordRequest;
 import integration.dto.IntegrationFolkbokfordResponse;
@@ -8,7 +8,7 @@ import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import se.fk.github.jaxrsclientfactory.JaxrsClientFactory;
 import se.fk.github.jaxrsclientfactory.JaxrsClientOptionsBuilders;
-import se.fk.rimfrost.api.folkbokforing.jaxrsspec.controllers.generatedsource.PopulationRegistrationControllerApi;
+import se.fk.rimfrost.api.folkbokforing.jaxrsspec.controllers.generatedsource.FolkbokforingControllerApi;
 
 @ApplicationScoped
 public class FolkbokfordIntegrationService
@@ -20,20 +20,20 @@ public class FolkbokfordIntegrationService
    @Inject
    IntegrationMapper integrationMapper;
 
-   private PopulationRegistrationControllerApi folkbokfordClient;
+   private FolkbokforingControllerApi folkbokfordClient;
 
    @PostConstruct
    void init()
    {
       this.folkbokfordClient = new JaxrsClientFactory()
-            .create(JaxrsClientOptionsBuilders.createClient(folkbokfordBaseUrl, PopulationRegistrationControllerApi.class)
+            .create(JaxrsClientOptionsBuilders.createClient(folkbokfordBaseUrl, FolkbokforingControllerApi.class)
                   .build());
    }
 
    public IntegrationFolkbokfordResponse checkFolkbokford(IntegrationFolkbokfordRequest externalRequest)
    {
       var request = integrationMapper.toExternalApi(externalRequest);
-      var response = folkbokfordClient.populationRegistrationSocialSecurityNrGet(request);
+      var response = folkbokfordClient.folkbokforingPersnrGet(request);
       return integrationMapper.fromExternalApi(response);
    }
 }
