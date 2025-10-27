@@ -2,6 +2,12 @@
 
 Changelog of rimfrost-regel-ratt-till-forsakring.
 
+## 0.0.4 (2025-10-27)
+
+### Bug Fixes
+
+-  Plural for all topic names ([fc32f](https://github.com/Forsakringskassan/rimfrost-regel-ratt-till-forsakring/commit/fc32f9a3baffeae) Ulf Slunga)  
+
 ## 0.0.3 (2025-10-27)
 
 ### Bug Fixes
