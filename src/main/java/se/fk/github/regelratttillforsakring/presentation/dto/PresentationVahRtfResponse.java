@@ -1,4 +1,4 @@
-package presentation.dto;
+package se.fk.github.regelratttillforsakring.presentation.dto;
 
 import org.immutables.value.Value;
 

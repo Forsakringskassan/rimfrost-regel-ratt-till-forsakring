@@ -1,4 +1,4 @@
-package logic.dto;
+package se.fk.github.regelratttillforsakring.logic.dto;
 
 import org.immutables.value.Value;
 
