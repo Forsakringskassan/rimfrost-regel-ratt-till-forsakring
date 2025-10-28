@@ -2,6 +2,22 @@
 
 Changelog of rimfrost-regel-ratt-till-forsakring.
 
+## 0.0.6 (2025-10-28)
+
+### Bug Fixes
+
+-  smoother deserialization ([aa080](https://github.com/Forsakringskassan/rimfrost-regel-ratt-till-forsakring/commit/aa0805b942781e8) rikrhen)  
+-  pointing to correct deserializer ([4df40](https://github.com/Forsakringskassan/rimfrost-regel-ratt-till-forsakring/commit/4df402d99140da9) rikrhen)  
+-  added deserializer ([1b9b0](https://github.com/Forsakringskassan/rimfrost-regel-ratt-till-forsakring/commit/1b9b07fb210f711) rikrhen)  
+
+### Other changes
+
+**Merge branch 'main' into fix/get-full-flow-working**
+
+
+[93865](https://github.com/Forsakringskassan/rimfrost-regel-ratt-till-forsakring/commit/938653d8db529f7) rikrhen *2025-10-28 10:22:16*
+
+
 ## 0.0.5 (2025-10-27)
 
 ### Bug Fixes
