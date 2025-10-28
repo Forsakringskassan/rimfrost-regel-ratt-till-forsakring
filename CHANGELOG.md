@@ -2,6 +2,38 @@
 
 Changelog of rimfrost-regel-ratt-till-forsakring.
 
+## 0.0.5 (2025-10-27)
+
+### Bug Fixes
+
+-  Plural for all topic names in incoming and outgoing annotations ([7d8b0](https://github.com/Forsakringskassan/rimfrost-regel-ratt-till-forsakring/commit/7d8b0b0a746d025) Ulf Slunga)  
+
+## 0.0.4 (2025-10-27)
+
+### Bug Fixes
+
+-  Plural for all topic names ([fc32f](https://github.com/Forsakringskassan/rimfrost-regel-ratt-till-forsakring/commit/fc32f9a3baffeae) Ulf Slunga)  
+
+## 0.0.3 (2025-10-27)
+
+### Bug Fixes
+
+-  implementing Swedish naming scheme, sorted ([36cfc](https://github.com/Forsakringskassan/rimfrost-regel-ratt-till-forsakring/commit/36cfc2b32cd75d0) rikrhen)  
+-  implementing Swedish naming scheme ([5ee9c](https://github.com/Forsakringskassan/rimfrost-regel-ratt-till-forsakring/commit/5ee9cb8a87a18f6) rikrhen)  
+
+### Other changes
+
+**Merge branch 'main' into fix/get-full-flow-working**
+
+
+[db707](https://github.com/Forsakringskassan/rimfrost-regel-ratt-till-forsakring/commit/db7072223648a77) rikrhen *2025-10-27 14:37:43*
+
+**Changing from singular to plural forms.**
+
+
+[0cc9e](https://github.com/Forsakringskassan/rimfrost-regel-ratt-till-forsakring/commit/0cc9ec679f0eb33) rikrhen *2025-10-27 13:35:00*
+
+
 ## 0.0.2 (2025-10-27)
 
 ### Bug Fixes
