@@ -2,6 +2,12 @@
 
 Changelog of rimfrost-regel-ratt-till-forsakring.
 
+## 0.0.9 (2025-10-28)
+
+### Bug Fixes
+
+-  serializer please serialize ([a9b2b](https://github.com/Forsakringskassan/rimfrost-regel-ratt-till-forsakring/commit/a9b2ba9611e5b6f) rikrhen)  
+
 ## 0.0.8 (2025-10-28)
 
 ### Bug Fixes
