@@ -2,6 +2,13 @@
 
 Changelog of rimfrost-regel-ratt-till-forsakring.
 
+## 0.0.8 (2025-10-28)
+
+### Bug Fixes
+
+-  spotless ([e6199](https://github.com/Forsakringskassan/rimfrost-regel-ratt-till-forsakring/commit/e61991640e825f6) rikrhen)  
+-  deserializer please deserialize ([e6612](https://github.com/Forsakringskassan/rimfrost-regel-ratt-till-forsakring/commit/e6612130718b5a0) rikrhen)  
+
 ## 0.0.7 (2025-10-28)
 
 ### Bug Fixes
