@@ -4,6 +4,13 @@ En regel som körs med quarkus.
 
 Build it with `./mvnw -s settings.xml clean verify`.
 
+## Build docker image locally for testing
+
+`./mvnw -s settings.xml clean package`
+
+
+## Github workflow
+
 A GitHub workflow will also create a Docker image, it is published to [repository](https://github.com/Forsakringskassan/repository). It can be started with:
 
 ```sh
