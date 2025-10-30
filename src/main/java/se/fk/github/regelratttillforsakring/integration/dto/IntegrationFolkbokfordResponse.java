@@ -6,4 +6,6 @@ import org.immutables.value.Value;
 public interface IntegrationFolkbokfordResponse
 {
    Boolean isBokford();
+
+   Boolean hasArbetsgivare();
 }

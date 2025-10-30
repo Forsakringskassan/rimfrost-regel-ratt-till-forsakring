@@ -15,6 +15,7 @@ public class LogicMapper
    {
       return ImmutableLogicFolkbokfordResponse.builder()
             .isBokford(external.isBokford())
+            .hasArbetsgivare(external.hasArbetsgivare())
             .build();
    }
 

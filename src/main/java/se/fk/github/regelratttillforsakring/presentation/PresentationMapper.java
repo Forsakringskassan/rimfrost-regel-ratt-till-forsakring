@@ -22,6 +22,7 @@ public class PresentationMapper
    {
       return ImmutablePresentationVahRtfResponse.builder()
             .isBokford(logic.isBokford())
+            .hasArbetsgivare(logic.hasArbetsgivare())
             .build();
 
    }
@@ -37,7 +38,8 @@ public class PresentationMapper
    {
       return ImmutableVahRtfResponse.builder()
             .processId(processId)
-            .result(presentationResponse.isBokford())
+            .isBokford(presentationResponse.isBokford())
+            .hasArbetsgivare(presentationResponse.hasArbetsgivare())
             .build();
    }
 }
