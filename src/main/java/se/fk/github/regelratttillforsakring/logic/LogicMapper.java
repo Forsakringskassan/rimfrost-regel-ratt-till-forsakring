@@ -1,9 +1,9 @@
 package se.fk.github.regelratttillforsakring.logic;
 
-import integration.dto.ImmutableIntegrationFolkbokfordRequest;
-import integration.dto.IntegrationFolkbokfordRequest;
-import integration.dto.IntegrationFolkbokfordResponse;
 import jakarta.enterprise.context.ApplicationScoped;
+import se.fk.github.regelratttillforsakring.integration.dto.ImmutableIntegrationFolkbokfordRequest;
+import se.fk.github.regelratttillforsakring.integration.dto.IntegrationFolkbokfordRequest;
+import se.fk.github.regelratttillforsakring.integration.dto.IntegrationFolkbokfordResponse;
 import se.fk.github.regelratttillforsakring.logic.dto.ImmutableLogicFolkbokfordResponse;
 import se.fk.github.regelratttillforsakring.logic.dto.LogicFolkbokfordRequest;
 import se.fk.github.regelratttillforsakring.logic.dto.LogicFolkbokfordResponse;

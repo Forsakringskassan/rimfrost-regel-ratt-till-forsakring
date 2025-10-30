@@ -1,13 +1,13 @@
 package se.fk.github.regelratttillforsakring.integration;
 
-import integration.dto.IntegrationFolkbokfordRequest;
-import integration.dto.IntegrationFolkbokfordResponse;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import se.fk.github.jaxrsclientfactory.JaxrsClientFactory;
 import se.fk.github.jaxrsclientfactory.JaxrsClientOptionsBuilders;
+import se.fk.github.regelratttillforsakring.integration.dto.IntegrationFolkbokfordRequest;
+import se.fk.github.regelratttillforsakring.integration.dto.IntegrationFolkbokfordResponse;
 import se.fk.rimfrost.api.folkbokforing.jaxrsspec.controllers.generatedsource.FolkbokforingControllerApi;
 
 @ApplicationScoped

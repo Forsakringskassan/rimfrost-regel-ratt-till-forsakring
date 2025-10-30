@@ -1,4 +1,4 @@
-package integration.dto;
+package se.fk.github.regelratttillforsakring.integration.dto;
 
 import org.immutables.value.Value;
 

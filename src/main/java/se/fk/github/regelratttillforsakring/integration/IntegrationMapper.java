@@ -1,9 +1,9 @@
 package se.fk.github.regelratttillforsakring.integration;
 
-import integration.dto.ImmutableIntegrationFolkbokfordResponse;
-import integration.dto.IntegrationFolkbokfordRequest;
-import integration.dto.IntegrationFolkbokfordResponse;
 import jakarta.enterprise.context.ApplicationScoped;
+import se.fk.github.regelratttillforsakring.integration.dto.ImmutableIntegrationFolkbokfordResponse;
+import se.fk.github.regelratttillforsakring.integration.dto.IntegrationFolkbokfordRequest;
+import se.fk.github.regelratttillforsakring.integration.dto.IntegrationFolkbokfordResponse;
 import se.fk.rimfrost.api.folkbokforing.jaxrsspec.controllers.generatedsource.model.FolkbokforingPersnrGet200Response;
 
 @ApplicationScoped
