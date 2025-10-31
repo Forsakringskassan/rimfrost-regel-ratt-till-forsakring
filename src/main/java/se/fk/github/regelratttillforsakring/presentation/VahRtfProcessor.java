@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import se.fk.github.logging.callerinfo.model.MDCKeys;
-import se.fk.github.regelratttillforsakring.logic.FolkbokfordLogicService;
+import se.fk.github.regelratttillforsakring.logic.RtfLogicService;
 import se.fk.github.regelratttillforsakring.presentation.dto.VahRtfRequest;
 import se.fk.github.regelratttillforsakring.presentation.dto.VahRtfResponse;
 
@@ -18,7 +18,7 @@ public class VahRtfProcessor
    private static final Logger LOGGER = LoggerFactory.getLogger(VahRtfProcessor.class);
 
    @Inject
-   FolkbokfordLogicService folkbokfordService;
+   RtfLogicService folkbokfordService;
 
    @Inject
    PresentationMapper presentationMapper;
@@ -31,7 +31,7 @@ public class VahRtfProcessor
       LOGGER.info("Vah-rtf-request received, ID: " + vahRtfRequest.processId());
       var presentationRequest = presentationMapper.fromExternalApi(vahRtfRequest.pnr());
       var logicRequest = presentationMapper.toLogic(presentationRequest);
-      var bokford = folkbokfordService.checkFolkbokford(logicRequest);
+      var bokford = folkbokfordService.checkRattTillForsakring(logicRequest);
       var presentationResult = presentationMapper.toPresentation(bokford);
       var vahRtfResponse = presentationMapper.toExternalApi(presentationResult, vahRtfRequest.processId());
       return vahRtfResponse;

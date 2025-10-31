@@ -6,13 +6,13 @@ import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import se.fk.github.jaxrsclientfactory.JaxrsClientFactory;
 import se.fk.github.jaxrsclientfactory.JaxrsClientOptionsBuilders;
-import se.fk.github.regelratttillforsakring.integration.dto.IntegrationFolkbokfordRequest;
-import se.fk.github.regelratttillforsakring.integration.dto.IntegrationFolkbokfordResponse;
+import se.fk.github.regelratttillforsakring.integration.dto.IntegrationRtfRequest;
+import se.fk.github.regelratttillforsakring.integration.dto.IntegrationRtfResponse;
 import se.fk.rimfrost.api.folkbokforing.jaxrsspec.controllers.generatedsource.FolkbokforingControllerApi;
 import se.fk.rimfrost.api.arbetsgivare.jaxrsspec.controllers.generatedsource.ArbetsgivareControllerApi;
 
 @ApplicationScoped
-public class FolkbokfordIntegrationService
+public class RtfIntegrationService
 {
 
    @ConfigProperty(name = "folkbokford.api.base-url")
@@ -38,7 +38,7 @@ public class FolkbokfordIntegrationService
                   .build());
    }
 
-   public IntegrationFolkbokfordResponse checkFolkbokford(IntegrationFolkbokfordRequest externalRequest)
+   public IntegrationRtfResponse checkRattTillForsakring(IntegrationRtfRequest externalRequest)
    {
       var request = integrationMapper.toExternalApi(externalRequest);
       var folkbokforingResponse = folkbokfordClient.folkbokforingPersnrGet(request);

@@ -1,9 +1,9 @@
-package se.fk.github.regelratttillforsakring.logic.dto;
+package se.fk.github.regelratttillforsakring.integration.dto;
 
 import org.immutables.value.Value;
 
 @Value.Immutable
-public interface LogicFolkbokfordResponse
+public interface IntegrationRtfResponse
 {
    Boolean isBokford();
 
