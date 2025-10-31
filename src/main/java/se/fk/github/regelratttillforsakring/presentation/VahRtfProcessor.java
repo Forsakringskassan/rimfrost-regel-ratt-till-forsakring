@@ -33,7 +33,6 @@ public class VahRtfProcessor
       var logicRequest = presentationMapper.toLogic(presentationRequest);
       var bokford = folkbokfordService.checkRattTillForsakring(logicRequest);
       var presentationResult = presentationMapper.toPresentation(bokford);
-      var vahRtfResponse = presentationMapper.toExternalApi(presentationResult, vahRtfRequest.processId());
-      return vahRtfResponse;
+      return presentationMapper.toExternalApi(presentationResult, vahRtfRequest.processId());
    }
 }
