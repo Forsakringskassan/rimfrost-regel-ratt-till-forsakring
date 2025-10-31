@@ -11,5 +11,7 @@ public interface VahRtfResponse
 {
    UUID processId();
 
-   boolean result();
+   boolean isBokford();
+
+   boolean hasArbetsgivare();
 }

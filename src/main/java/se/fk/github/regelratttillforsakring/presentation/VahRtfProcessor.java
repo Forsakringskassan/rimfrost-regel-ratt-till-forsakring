@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import se.fk.github.logging.callerinfo.model.MDCKeys;
-import se.fk.github.regelratttillforsakring.logic.FolkbokfordLogicService;
+import se.fk.github.regelratttillforsakring.logic.RtfLogicService;
 import se.fk.github.regelratttillforsakring.presentation.dto.VahRtfRequest;
 import se.fk.github.regelratttillforsakring.presentation.dto.VahRtfResponse;
 
@@ -18,7 +18,7 @@ public class VahRtfProcessor
    private static final Logger LOGGER = LoggerFactory.getLogger(VahRtfProcessor.class);
 
    @Inject
-   FolkbokfordLogicService folkbokfordService;
+   RtfLogicService rtfLogicService;
 
    @Inject
    PresentationMapper presentationMapper;
@@ -30,10 +30,9 @@ public class VahRtfProcessor
       MDC.put(MDCKeys.PROCESSID.name(), vahRtfRequest.processId().toString());
       LOGGER.info("Vah-rtf-request received, ID: " + vahRtfRequest.processId());
       var presentationRequest = presentationMapper.fromExternalApi(vahRtfRequest.pnr());
-      var logicRequest = presentationMapper.toLogic(presentationRequest);
-      var bokford = folkbokfordService.checkFolkbokford(logicRequest);
-      var presentationResult = presentationMapper.toPresentation(bokford);
-      var vahRtfResponse = presentationMapper.toExternalApi(presentationResult, vahRtfRequest.processId());
-      return vahRtfResponse;
+      var rattTillforsakringRequest = presentationMapper.toLogic(presentationRequest);
+      var rattTillForsakringResponse = rtfLogicService.checkRattTillForsakring(rattTillforsakringRequest);
+      var presentationResult = presentationMapper.toPresentation(rattTillForsakringResponse);
+      return presentationMapper.toExternalApi(presentationResult, vahRtfRequest.processId());
    }
 }

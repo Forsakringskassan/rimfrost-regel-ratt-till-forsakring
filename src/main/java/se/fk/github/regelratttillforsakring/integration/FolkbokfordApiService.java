@@ -6,12 +6,12 @@ import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import se.fk.github.jaxrsclientfactory.JaxrsClientFactory;
 import se.fk.github.jaxrsclientfactory.JaxrsClientOptionsBuilders;
-import se.fk.github.regelratttillforsakring.integration.dto.IntegrationFolkbokfordRequest;
-import se.fk.github.regelratttillforsakring.integration.dto.IntegrationFolkbokfordResponse;
+import se.fk.github.regelratttillforsakring.integration.dto.FolkbokfordApiRequest;
+import se.fk.github.regelratttillforsakring.integration.dto.FolkbokfordApiResponse;
 import se.fk.rimfrost.api.folkbokforing.jaxrsspec.controllers.generatedsource.FolkbokforingControllerApi;
 
 @ApplicationScoped
-public class FolkbokfordIntegrationService
+public class FolkbokfordApiService
 {
 
    @ConfigProperty(name = "folkbokford.api.base-url")
@@ -30,10 +30,10 @@ public class FolkbokfordIntegrationService
                   .build());
    }
 
-   public IntegrationFolkbokfordResponse checkFolkbokford(IntegrationFolkbokfordRequest externalRequest)
+   public FolkbokfordApiResponse checkFolkbokford(FolkbokfordApiRequest folkbokfordRequest)
    {
-      var request = integrationMapper.toExternalApi(externalRequest);
-      var response = folkbokfordClient.folkbokforingPersnrGet(request);
-      return integrationMapper.fromExternalApi(response);
+      var request = integrationMapper.toFolkbokfordApi(folkbokfordRequest);
+      var folkbokforingResponse = folkbokfordClient.folkbokforingPersnrGet(request);
+      return integrationMapper.fromFolkbokfordApi(folkbokforingResponse);
    }
 }
