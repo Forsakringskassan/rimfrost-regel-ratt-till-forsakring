@@ -11,7 +11,7 @@ public class RtfLogicService
 {
 
    @Inject
-   RtfIntegrationService folkbokfordIntegration;
+   RtfIntegrationService rtfIntegrationService;
 
    @Inject
    LogicMapper logicMapper;
@@ -19,7 +19,7 @@ public class RtfLogicService
    public LogicRtfResponse checkRattTillForsakring(LogicRtfRequest request)
    {
       var integrationRequest = logicMapper.toIntegration(request);
-      var integrationResponse = folkbokfordIntegration.checkRattTillForsakring(integrationRequest);
+      var integrationResponse = rtfIntegrationService.checkRattTillForsakring(integrationRequest);
       return logicMapper.toLogic(integrationResponse);
    }
 }

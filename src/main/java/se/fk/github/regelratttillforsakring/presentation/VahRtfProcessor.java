@@ -18,7 +18,7 @@ public class VahRtfProcessor
    private static final Logger LOGGER = LoggerFactory.getLogger(VahRtfProcessor.class);
 
    @Inject
-   RtfLogicService folkbokfordService;
+   RtfLogicService rtfLogicService;
 
    @Inject
    PresentationMapper presentationMapper;
@@ -31,7 +31,7 @@ public class VahRtfProcessor
       LOGGER.info("Vah-rtf-request received, ID: " + vahRtfRequest.processId());
       var presentationRequest = presentationMapper.fromExternalApi(vahRtfRequest.pnr());
       var logicRequest = presentationMapper.toLogic(presentationRequest);
-      var bokford = folkbokfordService.checkRattTillForsakring(logicRequest);
+      var bokford = rtfLogicService.checkRattTillForsakring(logicRequest);
       var presentationResult = presentationMapper.toPresentation(bokford);
       return presentationMapper.toExternalApi(presentationResult, vahRtfRequest.processId());
    }
