@@ -30,9 +30,9 @@ public class VahRtfProcessor
       MDC.put(MDCKeys.PROCESSID.name(), vahRtfRequest.processId().toString());
       LOGGER.info("Vah-rtf-request received, ID: " + vahRtfRequest.processId());
       var presentationRequest = presentationMapper.fromExternalApi(vahRtfRequest.pnr());
-      var logicRequest = presentationMapper.toLogic(presentationRequest);
-      var harRattResponse = rtfLogicService.checkRattTillForsakring(logicRequest);
-      var presentationResult = presentationMapper.toPresentation(harRattResponse);
+      var rattTillforsakringRequest = presentationMapper.toLogic(presentationRequest);
+      var rattTillForsakringResponse = rtfLogicService.checkRattTillForsakring(rattTillforsakringRequest);
+      var presentationResult = presentationMapper.toPresentation(rattTillForsakringResponse);
       return presentationMapper.toExternalApi(presentationResult, vahRtfRequest.processId());
    }
 }
