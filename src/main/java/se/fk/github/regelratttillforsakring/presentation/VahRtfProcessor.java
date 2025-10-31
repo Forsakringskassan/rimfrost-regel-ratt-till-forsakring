@@ -31,8 +31,8 @@ public class VahRtfProcessor
       LOGGER.info("Vah-rtf-request received, ID: " + vahRtfRequest.processId());
       var presentationRequest = presentationMapper.fromExternalApi(vahRtfRequest.pnr());
       var logicRequest = presentationMapper.toLogic(presentationRequest);
-      var bokford = rtfLogicService.checkRattTillForsakring(logicRequest);
-      var presentationResult = presentationMapper.toPresentation(bokford);
+      var harRattResponse = rtfLogicService.checkRattTillForsakring(logicRequest);
+      var presentationResult = presentationMapper.toPresentation(harRattResponse);
       return presentationMapper.toExternalApi(presentationResult, vahRtfRequest.processId());
    }
 }
