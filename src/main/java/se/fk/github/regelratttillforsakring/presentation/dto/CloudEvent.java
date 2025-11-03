@@ -12,42 +12,45 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Value.Immutable
 @JsonDeserialize(as = ImmutableCloudEvent.class)
 @JsonSerialize(as = ImmutableCloudEvent.class)
-public interface CloudEvent <T> {
+public interface CloudEvent<T>
+{
 
-    @Value.Default
-    default String specversion() {
-        return "1.0";
-    }
+   @Value.Default
+   default String specversion()
+   {
+      return "1.0";
+   }
 
-    UUID id();
+   UUID id();
 
-    URI source();
+   URI source();
 
-    String type();
+   String type();
 
-    @Value.Default
-    default OffsetDateTime time() {
-        return OffsetDateTime.now();
-    }
+   @Value.Default
+   default OffsetDateTime time()
+   {
+      return OffsetDateTime.now();
+   }
 
-    UUID kogitoparentprociid();
+   UUID kogitoparentprociid();
 
-    String kogitorootprocid();
+   String kogitorootprocid();
 
-    String kogitoproctype();
+   String kogitoproctype();
 
-    UUID kogitoprocinstanceid();
+   UUID kogitoprocinstanceid();
 
-    String kogitoprocist();
+   String kogitoprocist();
 
-    String kogitoprocversion();
+   String kogitoprocversion();
 
-    UUID kogitorootprociid();
+   UUID kogitorootprociid();
 
-    String kogitoprocid();
+   String kogitoprocid();
 
-    Optional<UUID> kogitoprocrefid();
+   Optional<UUID> kogitoprocrefid();
 
-    T data();
+   T data();
 
 }
