@@ -10,6 +10,8 @@ public class VahRtfRequestDeserializer extends ObjectMapperDeserializer<CloudEve
 {
    public VahRtfRequestDeserializer()
    {
-      super(new TypeReference<CloudEvent<VahRtfRequest>>() {});
+      super(new TypeReference<CloudEvent<VahRtfRequest>>()
+      {
+      });
    }
 }

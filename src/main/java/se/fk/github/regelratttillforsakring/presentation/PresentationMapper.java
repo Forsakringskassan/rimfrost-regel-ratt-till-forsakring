@@ -32,26 +32,27 @@ public class PresentationMapper
             .build();
    }
 
-   public CloudEvent<VahRtfResponse> toExternalApi(PresentationRtfResponse presentationResponse, CloudEvent<VahRtfRequest> request)
+   public CloudEvent<VahRtfResponse> toExternalApi(PresentationRtfResponse presentationResponse,
+         CloudEvent<VahRtfRequest> request)
    {
-      return ImmutableCloudEvent.<VahRtfResponse>builder()
-      .id(request.id())
-      .source(request.source())
-      .type("vah-rtf-responses")
-      .kogitorootprocid(request.kogitorootprocid())
-      .kogitorootprociid(request.kogitorootprociid())
-      .kogitoparentprociid(request.kogitoparentprociid())
-      .kogitoprocid(request.kogitoprocid())
-      .kogitoprocinstanceid(request.kogitoprocinstanceid())
-      .kogitoprocrefid(request.kogitoprocinstanceid())
-      .kogitoprocist(request.kogitoprocist())
-      .kogitoproctype(request.kogitoproctype())
-      .kogitoprocversion(request.kogitoprocversion())
-      .data(ImmutableVahRtfResponse.builder()
-            .processId(request.data().processId())
-            .isBokford(presentationResponse.isBokford())
-            .hasArbetsgivare(presentationResponse.hasArbetsgivare())
-            .build())
-      .build();
+      return ImmutableCloudEvent.<VahRtfResponse> builder()
+            .id(request.id())
+            .source(request.source())
+            .type("vah-rtf-responses")
+            .kogitorootprocid(request.kogitorootprocid())
+            .kogitorootprociid(request.kogitorootprociid())
+            .kogitoparentprociid(request.kogitoparentprociid())
+            .kogitoprocid(request.kogitoprocid())
+            .kogitoprocinstanceid(request.kogitoprocinstanceid())
+            .kogitoprocrefid(request.kogitoprocinstanceid())
+            .kogitoprocist(request.kogitoprocist())
+            .kogitoproctype(request.kogitoproctype())
+            .kogitoprocversion(request.kogitoprocversion())
+            .data(ImmutableVahRtfResponse.builder()
+                  .processId(request.data().processId())
+                  .isBokford(presentationResponse.isBokford())
+                  .hasArbetsgivare(presentationResponse.hasArbetsgivare())
+                  .build())
+            .build();
    }
 }
