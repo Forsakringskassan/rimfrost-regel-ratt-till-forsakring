@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import se.fk.github.logging.callerinfo.model.MDCKeys;
 import se.fk.github.regelratttillforsakring.logic.RtfLogicService;
+import se.fk.github.regelratttillforsakring.presentation.dto.CloudEvent;
 import se.fk.github.regelratttillforsakring.presentation.dto.VahRtfRequest;
 import se.fk.github.regelratttillforsakring.presentation.dto.VahRtfResponse;
 
@@ -29,16 +30,18 @@ public class VahRtfProcessor
 
    @Incoming("vah-rtf-requests")
    @Outgoing("vah-rtf-responses")
-   public VahRtfResponse process(VahRtfRequest vahRtfRequest)
+   public CloudEvent<VahRtfResponse> process(CloudEvent<VahRtfRequest> vahRtfRequest)
    {
-      MDC.put(MDCKeys.PROCESSID.name(), vahRtfRequest.processId().toString());
-      LOGGER.info("Vah-rtf-request received, ID: " + vahRtfRequest.processId());
+      MDC.put(MDCKeys.PROCESSID.name(), vahRtfRequest.data().processId().toString());
+      LOGGER.info("Vah-rtf-request received, ID: " + vahRtfRequest.data().processId());
       receivedMessagesCount.incrementAndGet();
-      var presentationRequest = presentationMapper.fromExternalApi(vahRtfRequest.pnr());
+
+      var presentationRequest = presentationMapper.fromExternalApi(vahRtfRequest.data().pnr());
       var rattTillforsakringRequest = presentationMapper.toLogic(presentationRequest);
       var rattTillForsakringResponse = rtfLogicService.checkRattTillForsakring(rattTillforsakringRequest);
       var presentationResult = presentationMapper.toPresentation(rattTillForsakringResponse);
-      return presentationMapper.toExternalApi(presentationResult, vahRtfRequest.processId());
+
+      return presentationMapper.toExternalApi(presentationResult, vahRtfRequest);
    }
 
    public int getReceivedMessagesCount()
