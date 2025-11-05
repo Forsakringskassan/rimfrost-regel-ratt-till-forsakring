@@ -1,0 +1,12 @@
+{
+  "priority": 10,
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/folkbokforing/\\d{8}-(9999)$"
+  },
+  "response": {
+    "status": 200,
+    "headers": {"Content-Type":  "application/json; charset=UTF-8"},
+    "bodyFileName": "folkbokforing/bad.json"
+  }
+}

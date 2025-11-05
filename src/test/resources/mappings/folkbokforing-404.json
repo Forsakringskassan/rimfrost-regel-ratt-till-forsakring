@@ -1,0 +1,12 @@
+{
+  "priority": 1000,
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/folkbokforing/[^/]+"
+  },
+  "response":{
+    "status": 404,
+    "headers": { "Content-Type":  "application/json"},
+    "bodyFileName": "folkbokforing/not-found.json"
+  }
+}

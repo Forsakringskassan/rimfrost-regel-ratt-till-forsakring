@@ -1,13 +1,13 @@
-package se.fk.github.regelratttillforsakring.presentation;
+package se.fk.github.regelratttillforsakring.tests.presentation;
 
+import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.mockito.junit.jupiter.MockitoExtension;
 import se.fk.github.regelratttillforsakring.logic.dto.ImmutableLogicRtfRequest;
 import se.fk.github.regelratttillforsakring.logic.dto.ImmutableLogicRtfResponse;
+import se.fk.github.regelratttillforsakring.presentation.PresentationMapper;
 import se.fk.github.regelratttillforsakring.presentation.dto.ImmutablePresentationRtfRequest;
 import se.fk.github.regelratttillforsakring.presentation.dto.ImmutablePresentationRtfResponse;
 import se.fk.github.regelratttillforsakring.presentation.dto.ImmutableVahRtfResponse;
@@ -16,7 +16,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(MockitoExtension.class)
+@QuarkusTest
 public class PresentationMapperTest
 {
 
