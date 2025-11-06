@@ -3,17 +3,17 @@ package se.fk.github.regelratttillforsakring.logic;
 import jakarta.enterprise.context.ApplicationScoped;
 import se.fk.github.regelratttillforsakring.integration.dto.*;
 import se.fk.github.regelratttillforsakring.logic.dto.ImmutableLogicRtfResponse;
+import se.fk.github.regelratttillforsakring.logic.dto.LogicRattTillForsakring;
 import se.fk.github.regelratttillforsakring.logic.dto.LogicRtfRequest;
 import se.fk.github.regelratttillforsakring.logic.dto.LogicRtfResponse;
 
 @ApplicationScoped
 public class LogicMapper
 {
-   public LogicRtfResponse toLogic(FolkbokfordApiResponse folkbokfordResponse, ArbetsgivareApiResponse arbetsgivareResponse)
+   public LogicRtfResponse toLogic(LogicRattTillForsakring rattTillForsakring)
    {
       return ImmutableLogicRtfResponse.builder()
-            .isBokford(folkbokfordResponse.isFolkbokford())
-            .hasArbetsgivare(arbetsgivareResponse.hasArbetsgivare())
+            .rattTillForsakring(rattTillForsakring)
             .build();
    }
 

@@ -15,7 +15,7 @@
   <properties>
     <violations.maxViolations>0</violations.maxViolations>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-    <mockito.version>5.12.0</mockito.version>
+
   </properties>
 
   <dependencies>
@@ -47,6 +47,11 @@
       <groupId>org.awaitility</groupId>
       <artifactId>awaitility</artifactId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>se.fk.rimfrost.api.vahregelrtfspec</groupId>
+      <artifactId>rimfrost-vah-regel-rtf-api</artifactId>
+      <version>0.1.0</version>
     </dependency>
   </dependencies>
 
