@@ -4,6 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import se.fk.github.regelratttillforsakring.integration.ArbetsgivareApiService;
 import se.fk.github.regelratttillforsakring.integration.FolkbokfordApiService;
+import se.fk.github.regelratttillforsakring.logic.dto.LogicRattTillForsakring;
 import se.fk.github.regelratttillforsakring.logic.dto.LogicRtfRequest;
 import se.fk.github.regelratttillforsakring.logic.dto.LogicRtfResponse;
 
@@ -26,6 +27,26 @@ public class RtfLogicService
       var arbetsgivareRequest = logicMapper.toArbetsgivareIntegration(request);
       var folkbokfordResponse = folkbokfordService.checkFolkbokford(folkbokfordRequest);
       var arbetsgivareResponse = arbetsgivareService.checkArbetsgivare(arbetsgivareRequest);
-      return logicMapper.toLogic(folkbokfordResponse, arbetsgivareResponse);
+      var rattTillForsakring = evaluateRattTillForsakring(folkbokfordResponse.isFolkbokford(),
+            arbetsgivareResponse.hasArbetsgivare());
+      return logicMapper.toLogic(rattTillForsakring);
+   }
+
+   private LogicRattTillForsakring evaluateRattTillForsakring(boolean isFolkbokford, boolean hasArbetsgivare)
+   {
+      LogicRattTillForsakring rattTillForsakring;
+      if (isFolkbokford)
+      {
+         rattTillForsakring = LogicRattTillForsakring.JA;
+      }
+      else if (!hasArbetsgivare)
+      {
+         rattTillForsakring = LogicRattTillForsakring.NEJ;
+      }
+      else
+      {
+         rattTillForsakring = LogicRattTillForsakring.UTREDNING;
+      }
+      return rattTillForsakring;
    }
 }

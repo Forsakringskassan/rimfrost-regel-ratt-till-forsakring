@@ -9,9 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import se.fk.github.logging.callerinfo.model.MDCKeys;
 import se.fk.github.regelratttillforsakring.logic.RtfLogicService;
-import se.fk.github.regelratttillforsakring.presentation.dto.CloudEvent;
-import se.fk.github.regelratttillforsakring.presentation.dto.VahRtfRequest;
-import se.fk.github.regelratttillforsakring.presentation.dto.VahRtfResponse;
+import se.fk.rimfrost.api.vahregelrtfspec.VahRtfRequestMessagePayload;
+import se.fk.rimfrost.api.vahregelrtfspec.VahRtfResponseMessagePayload;
 
 @ApplicationScoped
 public class VahRtfProcessor
@@ -26,12 +25,12 @@ public class VahRtfProcessor
 
    @Incoming("vah-rtf-requests")
    @Outgoing("vah-rtf-responses")
-   public CloudEvent<VahRtfResponse> process(CloudEvent<VahRtfRequest> vahRtfRequest)
+   public VahRtfResponseMessagePayload process(VahRtfRequestMessagePayload vahRtfRequest)
    {
-      MDC.put(MDCKeys.PROCESSID.name(), vahRtfRequest.data().processId().toString());
-      LOGGER.info("Vah-rtf-request received, ID: " + vahRtfRequest.data().processId());
+      MDC.put(MDCKeys.PROCESSID.name(), vahRtfRequest.getData().getProcessId().toString());
+      LOGGER.info("Vah-rtf-request received, ID: " + vahRtfRequest.getData().getProcessId());
 
-      var presentationRequest = presentationMapper.fromExternalApi(vahRtfRequest.data().pnr());
+      var presentationRequest = presentationMapper.fromExternalApi(vahRtfRequest.getData().getPersonNummer());
       var rattTillforsakringRequest = presentationMapper.toLogic(presentationRequest);
       var rattTillForsakringResponse = rtfLogicService.checkRattTillForsakring(rattTillforsakringRequest);
       var presentationResult = presentationMapper.toPresentation(rattTillForsakringResponse);

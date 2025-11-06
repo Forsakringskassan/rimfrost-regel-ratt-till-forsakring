@@ -5,7 +5,5 @@ import org.immutables.value.Value;
 @Value.Immutable
 public interface LogicRtfResponse
 {
-   Boolean isBokford();
-
-   Boolean hasArbetsgivare();
+   LogicRattTillForsakring rattTillForsakring();
 }
