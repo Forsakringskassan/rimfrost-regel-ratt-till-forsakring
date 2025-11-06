@@ -4,13 +4,13 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
 import se.fk.github.regelratttillforsakring.logic.dto.ImmutableLogicRtfRequest;
 import se.fk.github.regelratttillforsakring.logic.dto.ImmutableLogicRtfResponse;
+import se.fk.github.regelratttillforsakring.logic.dto.LogicRattTillForsakring;
 import se.fk.github.regelratttillforsakring.presentation.PresentationMapper;
-import se.fk.github.regelratttillforsakring.presentation.dto.ImmutablePresentationRtfRequest;
-import se.fk.github.regelratttillforsakring.presentation.dto.ImmutablePresentationRtfResponse;
-import se.fk.github.regelratttillforsakring.presentation.dto.ImmutableVahRtfResponse;
+import se.fk.github.regelratttillforsakring.presentation.dto.*;
+import se.fk.rimfrost.api.vahregelrtfspec.*;
 
 import java.util.UUID;
 
@@ -44,25 +44,25 @@ public class PresentationMapperTest
    }
 
    @ParameterizedTest
-   @CsvSource(
-   {
-         "true, true",
-         "true, false",
-         "false, true",
-         "false, false"
-   })
-   void toPresentation_mapsCorrectly(boolean isFolkbokford, boolean hasArbetsgivare)
+   @EnumSource(LogicRattTillForsakring.class)
+   void toPresentation_mapsCorrectly(LogicRattTillForsakring c)
    {
       var logicResponse = ImmutableLogicRtfResponse.builder()
-            .hasArbetsgivare(hasArbetsgivare)
-            .isBokford(isFolkbokford)
+            .rattTillForsakring(c)
             .build();
 
       var presentationResponse = mapper.toPresentation(logicResponse);
 
-      assertEquals(hasArbetsgivare, presentationResponse.hasArbetsgivare());
-      assertEquals(isFolkbokford, presentationResponse.isBokford());
+      assertEquals(expected(c), presentationResponse.rattTillForsakring());
       assertEquals(ImmutablePresentationRtfResponse.class, presentationResponse.getClass());
+   }
+
+   private static RattTillForsakring expected(LogicRattTillForsakring c){
+       return switch(c){
+           case JA -> RattTillForsakring.JA;
+           case NEJ -> RattTillForsakring.NEJ;
+           case UTREDNING -> RattTillForsakring.UTREDNING;
+       };
    }
 
    @Test
@@ -75,25 +75,36 @@ public class PresentationMapperTest
    }
 
    @ParameterizedTest
-   @CsvSource(
-   {
-         "true, true",
-         "true, false",
-         "false, true",
-         "false, false"
-   })
-   void toExternalApi_mapsCorrectly(boolean isFolkbokford, boolean hasArbetsgivare)
+   @EnumSource(RattTillForsakring.class)
+   void toExternalApi_mapsCorrectly(RattTillForsakring r)
    {
       var presentationResponse = ImmutablePresentationRtfResponse.builder()
-            .hasArbetsgivare(hasArbetsgivare)
-            .isBokford(isFolkbokford)
+            .rattTillForsakring(r)
             .build();
 
-      var toExternalResponse = mapper.toExternalApi(presentationResponse, processId);
+      var dummyData = new VahRtfRequestMessageData();
 
-      assertEquals(hasArbetsgivare, toExternalResponse.hasArbetsgivare());
-      assertEquals(isFolkbokford, toExternalResponse.isBokford());
-      assertEquals(processId, toExternalResponse.processId());
-      assertEquals(ImmutableVahRtfResponse.class, toExternalResponse.getClass());
+      dummyData.setProcessId(processId.toString());
+      dummyData.setPersonNummer(personnummer);
+
+      var dummyRequest = new VahRtfRequestMessagePayload();
+      dummyRequest.setData(dummyData);
+      dummyRequest.setId("123");
+      dummyRequest.setSource("234");
+      dummyRequest.setType("vah-rtf-responses");
+      dummyRequest.setKogitorootprocid("345");
+      dummyRequest.setKogitorootprociid("456");
+      dummyRequest.setKogitoparentprociid("567");
+      dummyRequest.setKogitoprocid("678");
+      dummyRequest.setKogitoprocinstanceid("789");
+      dummyRequest.setKogitoprocrefid("890");
+      dummyRequest.setKogitoprocist("901");
+      dummyRequest.setKogitoproctype(KogitoProcType.BPMN);
+      dummyRequest.setKogitoprocversion("1.1");
+
+      var toExternalResponse = mapper.toExternalApi(presentationResponse, dummyRequest);
+
+      assertEquals(r, toExternalResponse.getData().getRattTillForsakring());
+      assertEquals(VahRtfResponseMessagePayload.class, toExternalResponse.getClass());
    }
 }

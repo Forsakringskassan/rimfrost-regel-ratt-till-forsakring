@@ -4,13 +4,12 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import se.fk.github.regelratttillforsakring.integration.dto.ImmutableArbetsgivareApiResponse;
+import org.junit.jupiter.params.provider.EnumSource;
 import se.fk.github.regelratttillforsakring.integration.dto.ImmutableFolkbokfordApiRequest;
-import se.fk.github.regelratttillforsakring.integration.dto.ImmutableFolkbokfordApiResponse;
 import se.fk.github.regelratttillforsakring.logic.LogicMapper;
 import se.fk.github.regelratttillforsakring.logic.dto.ImmutableLogicRtfRequest;
 import se.fk.github.regelratttillforsakring.logic.dto.ImmutableLogicRtfResponse;
+import se.fk.github.regelratttillforsakring.logic.dto.LogicRattTillForsakring;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -53,27 +52,13 @@ public class LogicMapperTest
    }
 
    @ParameterizedTest
-   @CsvSource(
+   @EnumSource(LogicRattTillForsakring.class)
+
+   void toLogic_mapsCorrectly(LogicRattTillForsakring c)
    {
-         "true, false",
-         "true, true",
-         "false, true",
-         "false, false"
-   })
-   void toLogic_mapsCorrectly(boolean isFolkbokford, boolean hasArbetsgivare)
-   {
-      var fbResp = ImmutableFolkbokfordApiResponse.builder()
-            .isFolkbokford(isFolkbokford)
-            .build();
+      var logicResp = mapper.toLogic(c);
 
-      var abResp = ImmutableArbetsgivareApiResponse.builder()
-            .hasArbetsgivare(hasArbetsgivare)
-            .build();
-
-      var logicResp = mapper.toLogic(fbResp, abResp);
-
-      assertEquals(isFolkbokford, logicResp.isBokford());
-      assertEquals(hasArbetsgivare, logicResp.hasArbetsgivare());
+      assertEquals(c, logicResp.rattTillForsakring());
       assertEquals(ImmutableLogicRtfResponse.class, logicResp.getClass());
    }
 
