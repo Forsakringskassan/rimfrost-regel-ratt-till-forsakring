@@ -5,6 +5,9 @@ import se.fk.github.regelratttillforsakring.logic.dto.ImmutableLogicRtfRequest;
 import se.fk.github.regelratttillforsakring.logic.dto.LogicRtfRequest;
 import se.fk.github.regelratttillforsakring.logic.dto.LogicRtfResponse;
 import se.fk.github.regelratttillforsakring.presentation.dto.*;
+import se.fk.rimfrost.api.vahregelrtfspec.VahRtfRequestMessagePayload;
+import se.fk.rimfrost.api.vahregelrtfspec.VahRtfResponseMessageData;
+import se.fk.rimfrost.api.vahregelrtfspec.VahRtfResponseMessagePayload;
 
 @ApplicationScoped
 public class PresentationMapper
@@ -19,8 +22,7 @@ public class PresentationMapper
    public PresentationRtfResponse toPresentation(LogicRtfResponse logic)
    {
       return ImmutablePresentationRtfResponse.builder()
-            .isBokford(logic.isBokford())
-            .hasArbetsgivare(logic.hasArbetsgivare())
+            .rattTillForsakring(logic.rattTillForsakring())
             .build();
 
    }
@@ -32,27 +34,29 @@ public class PresentationMapper
             .build();
    }
 
-   public CloudEvent<VahRtfResponse> toExternalApi(PresentationRtfResponse presentationResponse,
-         CloudEvent<VahRtfRequest> request)
+   public VahRtfResponseMessagePayload toExternalApi(PresentationRtfResponse presentationResponse,
+         VahRtfRequestMessagePayload request)
    {
-      return ImmutableCloudEvent.<VahRtfResponse> builder()
-            .id(request.id())
-            .source(request.source())
-            .type("vah-rtf-responses")
-            .kogitorootprocid(request.kogitorootprocid())
-            .kogitorootprociid(request.kogitorootprociid())
-            .kogitoparentprociid(request.kogitoparentprociid())
-            .kogitoprocid(request.kogitoprocid())
-            .kogitoprocinstanceid(request.kogitoprocinstanceid())
-            .kogitoprocrefid(request.kogitoprocinstanceid())
-            .kogitoprocist(request.kogitoprocist())
-            .kogitoproctype(request.kogitoproctype())
-            .kogitoprocversion(request.kogitoprocversion())
-            .data(ImmutableVahRtfResponse.builder()
-                  .processId(request.data().processId())
-                  .isBokford(presentationResponse.isBokford())
-                  .hasArbetsgivare(presentationResponse.hasArbetsgivare())
-                  .build())
-            .build();
+      VahRtfResponseMessageData data = new VahRtfResponseMessageData();
+      data.setProcessId(request.getData().getProcessId());
+      data.setRattTillForsakring(presentationResponse.rattTillForsakring());
+      data.setPersonNummer(request.getData().getPersonNummer());
+
+      VahRtfResponseMessagePayload response = new VahRtfResponseMessagePayload();
+      response.setId(request.getId());
+      response.setSource(request.getSource());
+      response.setType("vah-rtf-responses");
+      response.setKogitorootprocid(request.getKogitorootprocid());
+      response.setKogitorootprociid(request.getKogitorootprociid());
+      response.setKogitoparentprociid(request.getKogitoparentprociid());
+      response.setKogitoprocid(request.getKogitoprocid());
+      response.setKogitoprocinstanceid(request.getKogitoprocinstanceid());
+      response.setKogitoprocrefid(request.getKogitoprocrefid());
+      response.setKogitoprocist(request.getKogitoprocist());
+      response.setKogitoproctype(request.getKogitoproctype());
+      response.setKogitoprocversion(request.getKogitoprocversion());
+      response.setData(data);
+
+      return response;
    }
 }
