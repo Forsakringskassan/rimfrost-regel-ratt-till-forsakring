@@ -2,9 +2,11 @@ package se.fk.github.regelratttillforsakring.presentation;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import se.fk.github.regelratttillforsakring.logic.dto.ImmutableLogicRtfRequest;
+import se.fk.github.regelratttillforsakring.logic.dto.LogicRattTillForsakring;
 import se.fk.github.regelratttillforsakring.logic.dto.LogicRtfRequest;
 import se.fk.github.regelratttillforsakring.logic.dto.LogicRtfResponse;
 import se.fk.github.regelratttillforsakring.presentation.dto.*;
+import se.fk.rimfrost.api.vahregelrtfspec.RattTillForsakring;
 import se.fk.rimfrost.api.vahregelrtfspec.VahRtfRequestMessagePayload;
 import se.fk.rimfrost.api.vahregelrtfspec.VahRtfResponseMessageData;
 import se.fk.rimfrost.api.vahregelrtfspec.VahRtfResponseMessagePayload;
@@ -22,7 +24,7 @@ public class PresentationMapper
    public PresentationRtfResponse toPresentation(LogicRtfResponse logic)
    {
       return ImmutablePresentationRtfResponse.builder()
-            .rattTillForsakring(logic.rattTillForsakring())
+            .rattTillForsakring(logicRattTillForsakringToRattTillForsakring(logic.rattTillForsakring()))
             .build();
 
    }
@@ -58,5 +60,26 @@ public class PresentationMapper
       response.setData(data);
 
       return response;
+   }
+
+   private RattTillForsakring logicRattTillForsakringToRattTillForsakring(LogicRattTillForsakring in)
+   {
+      RattTillForsakring out;
+      switch (in)
+      {
+         case JA:
+            out = RattTillForsakring.JA;
+            break;
+         case NEJ:
+            out = RattTillForsakring.NEJ;
+            break;
+         case UTREDNING:
+            out = RattTillForsakring.UTREDNING;
+            break;
+         default:
+            out = RattTillForsakring.UTREDNING;
+            break;
+      }
+      return out;
    }
 }
