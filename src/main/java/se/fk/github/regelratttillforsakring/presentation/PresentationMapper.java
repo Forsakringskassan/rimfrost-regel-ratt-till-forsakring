@@ -46,6 +46,7 @@ public class PresentationMapper
 
       VahRtfResponseMessagePayload response = new VahRtfResponseMessagePayload();
       response.setId(request.getId());
+      response.setSpecversion(request.getSpecversion());
       response.setSource(request.getSource());
       response.setType("vah-rtf-responses");
       response.setKogitorootprocid(request.getKogitorootprocid());
