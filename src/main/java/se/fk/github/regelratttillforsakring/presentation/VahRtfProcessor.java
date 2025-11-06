@@ -34,7 +34,7 @@ public class VahRtfProcessor
       var rattTillforsakringRequest = presentationMapper.toLogic(presentationRequest);
       var rattTillForsakringResponse = rtfLogicService.checkRattTillForsakring(rattTillforsakringRequest);
       var presentationResult = presentationMapper.toPresentation(rattTillForsakringResponse);
-      
+
       return presentationMapper.toExternalApi(presentationResult, vahRtfRequest);
    }
 }
