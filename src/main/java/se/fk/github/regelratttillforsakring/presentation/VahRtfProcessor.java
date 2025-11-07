@@ -12,10 +12,14 @@ import se.fk.github.regelratttillforsakring.logic.RtfLogicService;
 import se.fk.rimfrost.api.vahregelrtfspec.VahRtfRequestMessagePayload;
 import se.fk.rimfrost.api.vahregelrtfspec.VahRtfResponseMessagePayload;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @ApplicationScoped
 public class VahRtfProcessor
 {
    private static final Logger LOGGER = LoggerFactory.getLogger(VahRtfProcessor.class);
+
+   private final AtomicInteger receivedMessagesCount = new AtomicInteger(0);
 
    @Inject
    RtfLogicService rtfLogicService;
@@ -29,6 +33,7 @@ public class VahRtfProcessor
    {
       MDC.put(MDCKeys.PROCESSID.name(), vahRtfRequest.getData().getProcessId().toString());
       LOGGER.info("Vah-rtf-request received, ID: " + vahRtfRequest.getData().getProcessId());
+      receivedMessagesCount.incrementAndGet();
 
       var presentationRequest = presentationMapper.fromExternalApi(vahRtfRequest.getData().getPersonNummer());
       var rattTillforsakringRequest = presentationMapper.toLogic(presentationRequest);
@@ -36,5 +41,15 @@ public class VahRtfProcessor
       var presentationResult = presentationMapper.toPresentation(rattTillForsakringResponse);
 
       return presentationMapper.toExternalApi(presentationResult, vahRtfRequest);
+   }
+
+   public int getReceivedMessagesCount()
+   {
+      return receivedMessagesCount.get();
+   }
+
+   public void resetCounter()
+   {
+      receivedMessagesCount.set(0);
    }
 }
