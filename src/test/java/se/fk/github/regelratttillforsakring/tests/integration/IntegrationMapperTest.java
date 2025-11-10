@@ -8,7 +8,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import se.fk.github.regelratttillforsakring.integration.IntegrationMapper;
 import se.fk.github.regelratttillforsakring.integration.dto.ImmutableArbetsgivareApiRequest;
 import se.fk.github.regelratttillforsakring.integration.dto.ImmutableFolkbokfordApiRequest;
-import se.fk.github.regelratttillforsakring.integration.dto.ImmutableFolkbokfordApiResponse;
 import se.fk.rimfrost.api.arbetsgivare.jaxrsspec.controllers.generatedsource.model.GetArbetsgivare200Response;
 import se.fk.rimfrost.api.folkbokforing.jaxrsspec.controllers.generatedsource.model.FolkbokforingPersnrGet200Response;
 

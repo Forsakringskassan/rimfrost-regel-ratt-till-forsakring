@@ -9,8 +9,8 @@ import jakarta.inject.Inject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import se.fk.github.regelratttillforsakring.presentation.VahRtfProcessor;
-import se.fk.rimfrost.api.vahregelrtfspec.VahRtfRequestMessagePayload;
-import se.fk.rimfrost.api.vahregelrtfspec.VahRtfResponseMessagePayload;
+import se.fk.rimfrost.VahRtfRequestMessagePayload;
+import se.fk.rimfrost.VahRtfResponseMessagePayload;
 
 @QuarkusTestResource(InMemoryKafkaResource.class)
 public class KafkaTestBase
@@ -31,7 +31,6 @@ public class KafkaTestBase
       inMemorySource = connector.source("vah-rtf-requests");
       inMemorySink = connector.sink("vah-rtf-responses");
       inMemorySink.clear();
-      processor.resetCounter();
    }
 
    @AfterEach
