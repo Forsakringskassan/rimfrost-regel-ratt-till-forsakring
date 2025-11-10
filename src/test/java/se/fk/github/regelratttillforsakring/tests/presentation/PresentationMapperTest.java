@@ -9,8 +9,7 @@ import se.fk.github.regelratttillforsakring.logic.dto.ImmutableLogicRtfRequest;
 import se.fk.github.regelratttillforsakring.logic.dto.ImmutableLogicRtfResponse;
 import se.fk.github.regelratttillforsakring.logic.dto.LogicRattTillForsakring;
 import se.fk.github.regelratttillforsakring.presentation.PresentationMapper;
-import se.fk.github.regelratttillforsakring.presentation.dto.*;
-import se.fk.rimfrost.api.vahregelrtfspec.*;
+import se.fk.rimfrost.*;
 
 import java.util.UUID;
 
@@ -31,30 +30,15 @@ public class PresentationMapperTest
    }
 
    @Test
-   void toLogic_mapsCorrectly()
+   void toRattTillForsakringRequest_mapsCorrectly()
    {
-      var presentationRequest = ImmutablePresentationRtfRequest.builder()
-            .personnummer(personnummer)
-            .build();
+      var rtfRequest = new VahRtfRequestMessageData();
+      rtfRequest.setPersonNummer(personnummer);
 
-      var logicReq = mapper.toLogic(presentationRequest);
+      var rattTillforsakringRequest = mapper.toRattTillForsakringRequest(rtfRequest);
 
-      assertEquals(personnummer, logicReq.personnummer());
-      assertEquals(ImmutableLogicRtfRequest.class, logicReq.getClass());
-   }
-
-   @ParameterizedTest
-   @EnumSource(LogicRattTillForsakring.class)
-   void toPresentation_mapsCorrectly(LogicRattTillForsakring c)
-   {
-      var logicResponse = ImmutableLogicRtfResponse.builder()
-            .rattTillForsakring(c)
-            .build();
-
-      var presentationResponse = mapper.toPresentation(logicResponse);
-
-      assertEquals(expected(c), presentationResponse.rattTillForsakring());
-      assertEquals(ImmutablePresentationRtfResponse.class, presentationResponse.getClass());
+      assertEquals(personnummer, rattTillforsakringRequest.personnummer());
+      assertEquals(ImmutableLogicRtfRequest.class, rattTillforsakringRequest.getClass());
    }
 
    private static RattTillForsakring expected(LogicRattTillForsakring c){
@@ -65,25 +49,15 @@ public class PresentationMapperTest
        };
    }
 
-   @Test
-   void fromExternalApi_mapsCorrectly()
-   {
-      var presentationRequest = mapper.fromExternalApi(personnummer);
-
-      assertEquals(personnummer, presentationRequest.personnummer());
-      assertEquals(ImmutablePresentationRtfRequest.class, presentationRequest.getClass());
-   }
-
    @ParameterizedTest
-   @EnumSource(RattTillForsakring.class)
-   void toExternalApi_mapsCorrectly(RattTillForsakring r)
+   @EnumSource(LogicRattTillForsakring.class)
+   void toExternalApi_mapsCorrectly(LogicRattTillForsakring r)
    {
-      var presentationResponse = ImmutablePresentationRtfResponse.builder()
+      var logicResponse = ImmutableLogicRtfResponse.builder()
             .rattTillForsakring(r)
             .build();
 
       var dummyData = new VahRtfRequestMessageData();
-
       dummyData.setProcessId(processId.toString());
       dummyData.setPersonNummer(personnummer);
 
@@ -102,9 +76,9 @@ public class PresentationMapperTest
       dummyRequest.setKogitoproctype(KogitoProcType.BPMN);
       dummyRequest.setKogitoprocversion("1.1");
 
-      var toExternalResponse = mapper.toExternalApi(presentationResponse, dummyRequest);
+      var toExternalResponse = mapper.toRtfResponsePayload(logicResponse, dummyRequest);
 
-      assertEquals(r, toExternalResponse.getData().getRattTillForsakring());
+      assertEquals(expected(r), toExternalResponse.getData().getRattTillForsakring());
       assertEquals(VahRtfResponseMessagePayload.class, toExternalResponse.getClass());
    }
 }

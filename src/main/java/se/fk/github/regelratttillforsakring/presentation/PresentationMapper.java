@@ -5,43 +5,28 @@ import se.fk.github.regelratttillforsakring.logic.dto.ImmutableLogicRtfRequest;
 import se.fk.github.regelratttillforsakring.logic.dto.LogicRattTillForsakring;
 import se.fk.github.regelratttillforsakring.logic.dto.LogicRtfRequest;
 import se.fk.github.regelratttillforsakring.logic.dto.LogicRtfResponse;
-import se.fk.github.regelratttillforsakring.presentation.dto.*;
-import se.fk.rimfrost.api.vahregelrtfspec.RattTillForsakring;
-import se.fk.rimfrost.api.vahregelrtfspec.VahRtfRequestMessagePayload;
-import se.fk.rimfrost.api.vahregelrtfspec.VahRtfResponseMessageData;
-import se.fk.rimfrost.api.vahregelrtfspec.VahRtfResponseMessagePayload;
+import se.fk.rimfrost.RattTillForsakring;
+import se.fk.rimfrost.VahRtfRequestMessageData;
+import se.fk.rimfrost.VahRtfRequestMessagePayload;
+import se.fk.rimfrost.VahRtfResponseMessageData;
+import se.fk.rimfrost.VahRtfResponseMessagePayload;
 
 @ApplicationScoped
 public class PresentationMapper
 {
-   public LogicRtfRequest toLogic(PresentationRtfRequest presentation)
+   public LogicRtfRequest toRattTillForsakringRequest(VahRtfRequestMessageData presentation)
    {
       return ImmutableLogicRtfRequest.builder()
-            .personnummer(presentation.personnummer())
+            .personnummer(presentation.getPersonNummer())
             .build();
    }
 
-   public PresentationRtfResponse toPresentation(LogicRtfResponse logic)
-   {
-      return ImmutablePresentationRtfResponse.builder()
-            .rattTillForsakring(logicRattTillForsakringToRattTillForsakring(logic.rattTillForsakring()))
-            .build();
-
-   }
-
-   public PresentationRtfRequest fromExternalApi(String externalRequest)
-   {
-      return ImmutablePresentationRtfRequest.builder()
-            .personnummer(externalRequest)
-            .build();
-   }
-
-   public VahRtfResponseMessagePayload toExternalApi(PresentationRtfResponse presentationResponse,
+   public VahRtfResponseMessagePayload toRtfResponsePayload(LogicRtfResponse logicResponse,
          VahRtfRequestMessagePayload request)
    {
       VahRtfResponseMessageData data = new VahRtfResponseMessageData();
       data.setProcessId(request.getData().getProcessId());
-      data.setRattTillForsakring(presentationResponse.rattTillForsakring());
+      data.setRattTillForsakring(logicRattTillForsakringToRattTillForsakring(logicResponse.rattTillForsakring()));
       data.setPersonNummer(request.getData().getPersonNummer());
 
       VahRtfResponseMessagePayload response = new VahRtfResponseMessagePayload();
@@ -54,7 +39,7 @@ public class PresentationMapper
       response.setKogitoparentprociid(request.getKogitoparentprociid());
       response.setKogitoprocid(request.getKogitoprocid());
       response.setKogitoprocinstanceid(request.getKogitoprocinstanceid());
-      response.setKogitoprocrefid(request.getKogitoprocrefid());
+      response.setKogitoprocrefid(request.getKogitoprocinstanceid());
       response.setKogitoprocist(request.getKogitoprocist());
       response.setKogitoproctype(request.getKogitoproctype());
       response.setKogitoprocversion(request.getKogitoprocversion());

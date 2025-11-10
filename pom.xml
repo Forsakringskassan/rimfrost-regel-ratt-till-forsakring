@@ -49,9 +49,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>se.fk.rimfrost.api.vahregelrtfspec</groupId>
+      <groupId>se.fk.rimfrost</groupId>
       <artifactId>rimfrost-vah-regel-rtf-api</artifactId>
-      <version>0.1.0</version>
+      <version>0.1.1</version>
     </dependency>
   </dependencies>
 

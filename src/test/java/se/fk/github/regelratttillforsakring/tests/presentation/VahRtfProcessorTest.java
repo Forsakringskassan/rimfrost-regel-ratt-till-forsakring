@@ -2,13 +2,16 @@ package se.fk.github.regelratttillforsakring.tests.presentation;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
+
 import se.fk.github.regelratttillforsakring.common.KafkaTestBase;
-import se.fk.rimfrost.api.vahregelrtfspec.KogitoProcType;
-import se.fk.rimfrost.api.vahregelrtfspec.VahRtfRequestMessageData;
-import se.fk.rimfrost.api.vahregelrtfspec.VahRtfRequestMessagePayload;
-import se.fk.rimfrost.api.vahregelrtfspec.VahRtfResponseMessagePayload;
+import se.fk.rimfrost.KogitoProcType;
+import se.fk.rimfrost.RattTillForsakring;
+import se.fk.rimfrost.VahRtfRequestMessageData;
+import se.fk.rimfrost.VahRtfRequestMessagePayload;
+import se.fk.rimfrost.VahRtfResponseMessagePayload;
 
 import java.time.Duration;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,59 +24,70 @@ public class VahRtfProcessorTest extends KafkaTestBase
    @Test
    void testReceiveVahRtfRequest_withOkPnr()
    {
-      UUID processId = UUID.randomUUID();
-      String personnummer = "12345678-1234";
 
-      var dummyData = new VahRtfRequestMessageData();
-      dummyData.setProcessId(processId.toString());
-      dummyData.setPersonNummer(personnummer);
-
-      var request = new VahRtfRequestMessagePayload();
-      request.setData(dummyData);
-
-      inMemorySource.send(request);
-
-      await()
-            .atMost(Duration.ofSeconds(5))
-            .untilAsserted(() -> {
-               assertThat(processor.getReceivedMessagesCount())
-                     .as("One message should have been received")
-                     .isEqualTo(1);
-            });
+      var rtfRequestPayload = createRtfPayload();
+      inMemorySource.send(rtfRequestPayload);
 
       await()
             .atMost(Duration.ofSeconds(5))
             .untilAsserted(() -> {
                assertThat(inMemorySink.received())
-                     .as("One message should have been received")
+                     .as("One message should have been sent")
                      .hasSize(1);
-               VahRtfResponseMessagePayload response = inMemorySink.received().getFirst().getPayload();
-               assertThat(response.getData().getProcessId()).isEqualTo(processId.toString());
-               assertThat(response.getData().getPersonNummer()).isEqualTo(personnummer);
+
+               VahRtfResponseMessagePayload response = inMemorySink.received().get(0).getPayload();
+               assertThat(response.getData().getProcessId()).isEqualTo(rtfRequestPayload.getData().getProcessId());
+               assertThat(response.getData().getPersonNummer()).isEqualTo(rtfRequestPayload.getData().getPersonNummer());
+               assertThat(response.getData().getRattTillForsakring()).isEqualTo(RattTillForsakring.JA);
+               assertThat(response.getId()).isEqualTo(rtfRequestPayload.getId());
+               assertThat(response.getSource()).isEqualTo(rtfRequestPayload.getSource());
+               assertThat(response.getType()).isEqualTo("vah-rtf-responses");
+               assertThat(response.getKogitorootprocid()).isEqualTo(rtfRequestPayload.getKogitorootprocid());
+               assertThat(response.getKogitoparentprociid()).isEqualTo(rtfRequestPayload.getKogitoparentprociid());
+               assertThat(response.getKogitoprocinstanceid()).isEqualTo(rtfRequestPayload.getKogitoprocinstanceid());
+               assertThat(response.getKogitoproctype()).isEqualTo(rtfRequestPayload.getKogitoproctype());
+               assertThat(response.getKogitoprocid()).isEqualTo(rtfRequestPayload.getKogitoprocid());
+               assertThat(response.getKogitoprocrefid()).isEqualTo(rtfRequestPayload.getKogitoprocinstanceid());
+               assertThat(response.getKogitoprocversion()).isEqualTo(rtfRequestPayload.getKogitoprocversion());
+
             });
    }
 
    @Test
    void testReceiveMultipleRequests()
    {
+
+      var request1 = createRtfPayload();
+      var request2 = createRtfPayload();
+
+      inMemorySource.send(request1);
+      inMemorySource.send(request2);
+
+      await()
+            .atMost(Duration.ofSeconds(5))
+            .untilAsserted(() -> {
+               assertThat(inMemorySink.received())
+                     .as("Two messages should have been sent")
+                     .hasSize(2);
+            });
+   }
+
+   private VahRtfRequestMessagePayload createRtfPayload()
+   {
+
       UUID processId = UUID.randomUUID();
-      UUID processId2 = UUID.randomUUID();
       String personnummer = "12345678-1234";
-      String personnummer2 = "12345678-3456";
 
-      var dummyData = new VahRtfRequestMessageData();
-      dummyData.setProcessId(processId.toString());
-      dummyData.setPersonNummer(personnummer);
-
-      var dummyData2 = new VahRtfRequestMessageData();
-      dummyData2.setProcessId(processId2.toString());
-      dummyData2.setPersonNummer(personnummer2);
+      var data = new VahRtfRequestMessageData();
+      data.setProcessId(processId.toString());
+      data.setPersonNummer(personnummer);
 
       var request = new VahRtfRequestMessagePayload();
-      request.setData(dummyData);
+      request.setData(data);
       request.setId("123");
       request.setSource("234");
-      request.setType("vah-rtf-responses");
+      request.setType("vah-rtf-requests");
+      request.setTime(OffsetDateTime.now());
       request.setKogitorootprocid("345");
       request.setKogitorootprociid("456");
       request.setKogitoparentprociid("567");
@@ -83,31 +97,7 @@ public class VahRtfProcessorTest extends KafkaTestBase
       request.setKogitoprocist("901");
       request.setKogitoproctype(KogitoProcType.BPMN);
       request.setKogitoprocversion("1.1");
-
-      var request2 = new VahRtfRequestMessagePayload();
-      request2.setData(dummyData2);
-      request2.setId("123");
-      request2.setSource("234");
-      request2.setType("vah-rtf-responses");
-      request2.setKogitorootprocid("345");
-      request2.setKogitorootprociid("456");
-      request2.setKogitoparentprociid("567");
-      request2.setKogitoprocid("678");
-      request2.setKogitoprocinstanceid("789");
-      request2.setKogitoprocrefid("890");
-      request2.setKogitoprocist("901");
-      request2.setKogitoproctype(KogitoProcType.BPMN);
-      request2.setKogitoprocversion("1.1");
-
-      inMemorySource.send(request);
-      inMemorySource.send(request2);
-
-      await()
-            .atMost(Duration.ofSeconds(5))
-            .untilAsserted(() -> {
-               assertThat(processor.getReceivedMessagesCount())
-                     .as("Two messages should have been received")
-                     .isEqualTo(2);
-            });
+      return request;
    }
+
 }
